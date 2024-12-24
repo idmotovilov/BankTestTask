@@ -25,7 +25,7 @@ public class CreditCalculationServiceImpl implements CreditCalculationService {
     private static final double DEFAULT_BASE_RATE = 15.0;
     private final double baseRate = DEFAULT_BASE_RATE;
 
-    private static final BigDecimal INSURANCE_COST = BigDecimal.valueOf(10000);
+    private static final BigDecimal INSURANCE_COST = BigDecimal.valueOf(1000);
 
     @Override
     public CreditDto calculateCredit(ScoringDataDto scoringDataDto) {
