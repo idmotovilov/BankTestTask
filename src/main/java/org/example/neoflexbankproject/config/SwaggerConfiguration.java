@@ -10,24 +10,24 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 
+
 public class SwaggerConfiguration {
 
     @Bean
-    public OpenAPI vacationCalculatorOpenAPI() {
+    public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
                         .title("Vacation Calculator API")
                         .description("API для расчета отпускных")
-                        .version("v1.0")
+                        .version("1.0")  // Указывается версия API
                         .contact(new Contact()
                                 .name("Ваше имя")
                                 .url("https://yourcompany.com")
                                 .email("your.email@example.com"))
                         .license(new License()
                                 .name("Apache 2.0")
-                                .url("https://www.apache.org/licenses/LICENSE-2.0.html")))
-                .externalDocs(new ExternalDocumentation()
-                        .description("Дополнительная документация")
-                        .url("https://yourcompany.com/docs"));
+                                .url("http://www.apache.org/licenses/LICENSE-2.0.html")));
     }
 }
+
+

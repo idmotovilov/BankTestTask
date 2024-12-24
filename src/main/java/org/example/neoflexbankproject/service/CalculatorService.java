@@ -7,7 +7,5 @@ import org.example.neoflexbankproject.dto.LoanStatementRequestDto;
 import java.util.List;
 
 public interface CalculatorService {
-    List<LoanOfferDto> salaryCalculation(@NonNull LoanStatementRequestDto loanStatementRequestDto);
-
-
+    List<LoanOfferDto> salaryCalculation(@NonNull LoanStatementRequestDto requestDto);
 }
