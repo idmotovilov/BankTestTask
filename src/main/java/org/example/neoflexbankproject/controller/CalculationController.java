@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/calculator")
 @RequiredArgsConstructor
+
 public class CalculationController implements CalculationApi {
 
     private final CalculatorService calculatorService;

@@ -48,43 +48,40 @@ class CalculationControllerTest {
      * Сценарий: невалидные поля => ожидаем 400 BAD_REQUEST.
      */
 
-    /**
-     * Анна, данный тест закомменчен, так как обнаружил ошибку я слшком поздно, пока не смог найти причину.
-     * В скором времени будет исправлено.
-     */
 
 
-//    @Test
-//    @DisplayName("offer(): невалидные поля => 400 BAD_REQUEST")
-//   void testOfferValidationError() throws Exception {
-//        // Делаем заведомо "кривой" LoanStatementRequestDto
-//        LoanStatementRequestDto invalidRequest = new LoanStatementRequestDto(
-//                BigDecimal.valueOf(10_000), // <20000 => DecimalMin нарушена
-//                3,                          // <6 => Min нарушена
-//                "J",                        // Имя <2 символов => Pattern
-//                "D",                        // Фамилия <2 символов => Pattern
-//                "!",                        // Отчество не вписывается в [A-Za-z]{2,30}
-//                "bad_email_format",         // Неверный email
-//                LocalDate.now(),           // не в прошлом => @Past + не >=18
-//                "12",                       // Серия !=4 цифр
-//                "12345"                     // Номер !=6 цифр
-//        );
-//
-//        mockMvc.perform(post("/calculator/offers")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(objectMapper.writeValueAsString(invalidRequest)))
-//                .andExpect(status().isBadRequest()) // ожидаем 400
-//                .andExpect(content().string(containsString("Сумма кредита должна быть не меньше 20000")))
-//                .andExpect(content().string(containsString("Срок кредита должен быть не меньше 6 месяцев")))
-//                .andExpect(content().string(containsString("Имя должно содержать от 2 до 30 латинских букв")))
-//                .andExpect(content().string(containsString("Фамилия должна содержать от 2 до 30 латинских букв")))
-//                .andExpect(content().string(containsString("Отчество должно содержать от 2 до 30 латинских букв")))
-//                .andExpect(content().string(containsString("Неверный формат email")))
-//                .andExpect(content().string(containsString("Дата рождения должна быть в прошлом")))
-//                .andExpect(content().string(containsString("Серия паспорта должна состоять из 4 цифр")))
-//                .andExpect(content().string(containsString("Номер паспорта должен состоять из 6 циф")))
-//                .andExpect(content().string(containsString("Клиент должен быть старше 18 лет")));
-//    }
+
+    @Test
+    @DisplayName("offer(): невалидные поля => 400 BAD_REQUEST")
+   void testOfferValidationError() throws Exception {
+        // Делаем заведомо "кривой" LoanStatementRequestDto
+        LoanStatementRequestDto invalidRequest = new LoanStatementRequestDto(
+                BigDecimal.valueOf(10_000), // <20000 => DecimalMin нарушена
+                3,                          // <6 => Min нарушена
+                "J",                        // Имя <2 символов => Pattern
+                "D",                        // Фамилия <2 символов => Pattern
+                "!",                        // Отчество не вписывается в [A-Za-z]{2,30}
+                "bad_email_format",         // Неверный email
+                LocalDate.now(),           // не в прошлом => @Past + не >=18
+                "12",                       // Серия !=4 цифр
+                "12345"                     // Номер !=6 цифр
+        );
+
+        mockMvc.perform(post("/calculator/offers")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(invalidRequest)))
+                .andExpect(status().isBadRequest()) // ожидаем 400
+                .andExpect(content().string(containsString("Сумма кредита должна быть не меньше 20000")))
+                .andExpect(content().string(containsString("Срок кредита должен быть не меньше 6 месяцев")))
+                .andExpect(content().string(containsString("Имя должно содержать от 2 до 30 латинских букв")))
+                .andExpect(content().string(containsString("Фамилия должна содержать от 2 до 30 латинских букв")))
+                .andExpect(content().string(containsString("Отчество должно содержать от 2 до 30 латинских букв")))
+                .andExpect(content().string(containsString("Неверный формат email")))
+                .andExpect(content().string(containsString("Дата рождения должна быть в прошлом")))
+                .andExpect(content().string(containsString("Серия паспорта должна состоять из 4 цифр")))
+                .andExpect(content().string(containsString("Номер паспорта должен состоять из 6 циф")))
+                .andExpect(content().string(containsString("Клиент должен быть старше 18 лет")));
+    }
 
     /**
      * Сценарий: валидные поля => ожидаем 200 OK.

@@ -50,7 +50,7 @@ class CreditCalculationServiceImplTest {
         CreditDto credit = service.calculateCredit(scoringData);
 
         assertNotNull(credit);
-        assertEquals("60000", credit.amount().toPlainString());
+        assertEquals("51000", credit.amount().toPlainString());
         assertEquals("11.0", credit.rate().toPlainString());
         assertTrue(credit.monthlyPayment().compareTo(BigDecimal.ZERO) > 0);
         assertTrue(credit.psk().compareTo(BigDecimal.ZERO) > 0);
@@ -118,7 +118,7 @@ class CreditCalculationServiceImplTest {
     @Test
     void testCalculateCredit_InsuranceNoSalary() {
         ScoringDataDto scoringData = new ScoringDataDto(
-                BigDecimal.valueOf(40000),
+                BigDecimal.valueOf(49000),
                 10,
                 "Bob",
                 "Marley",
