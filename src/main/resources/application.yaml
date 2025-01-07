@@ -1,5 +1,9 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/dealdb
-    username: deal_user
-    password: deal_password
+    username: postgres
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true

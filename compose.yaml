@@ -1,9 +1,12 @@
+version: '3.8'
+
 services:
   postgres:
-    image: 'postgres:latest'
+    image: postgres:latest
+    container_name: deal-db
     environment:
-      - 'POSTGRES_DB=mydatabase'
-      - 'POSTGRES_PASSWORD=password'
-      - 'POSTGRES_USER=postgres'
+      POSTGRES_DB: dealdb       # имя базы
+      POSTGRES_USER: postgres   # пользователь
+      POSTGRES_PASSWORD: password
     ports:
-      - '5432'
+      - '5432:5432'  # проброс порта 5432 контейнера на 5432 хоста
