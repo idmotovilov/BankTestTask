@@ -9,13 +9,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.core.ParameterizedTypeReference;
 
 import java.util.List;
 
 @Slf4j
-@Component
+
 @Configuration
 public class CalculatorClient {
 
@@ -38,23 +38,18 @@ public class CalculatorClient {
                     url,
                     HttpMethod.POST,
                     new HttpEntity<>(scoringData),
-                    new org.springframework.core.ParameterizedTypeReference<>() {}
+                    new ParameterizedTypeReference<>() {}
             );
 
-            if (response == null) {
-                throw new CalculatorClientException("Response is null", new NullPointerException("response = null"));
+            if (response == null || response.getBody() == null) {
+                throw new CalculatorClientException("Response body is null",
+                        new NullPointerException("offers = null"));
             }
             List<LoanOfferDto> offers = response.getBody();
-            if (offers == null) {
-                throw new CalculatorClientException("Response body is null", new NullPointerException("offers = null"));
-            }
-
             log.info("Received offers: {}", offers);
             return offers;
         } catch (Exception e) {
             log.error("Error while fetching loan offers from calculator", e);
-            // Ловим любое Exception (не только RestClientException),
-            // чтобы гарантированно бросить CalculatorClientException
             throw new CalculatorClientException("Failed to get loan offers", e);
         }
     }
@@ -66,10 +61,16 @@ public class CalculatorClient {
         log.info("calculateCredit() called with scoringData={}", scoringData);
         String url = calculatorBaseUrl + "/calculator/calc";
         try {
-            CreditDto creditDto = restTemplate.postForObject(url, scoringData, CreditDto.class);
-            if (creditDto == null) {
-                throw new CalculatorClientException("CreditDto is null", new NullPointerException("creditDto = null"));
+            ResponseEntity<CreditDto> response = restTemplate.postForEntity(
+                    url,
+                    new HttpEntity<>(scoringData),
+                    CreditDto.class
+            );
+            if (response.getBody() == null) {
+                throw new CalculatorClientException("CreditDto is null",
+                        new NullPointerException("creditDto = null"));
             }
+            CreditDto creditDto = response.getBody();
             log.info("Received creditDto: {}", creditDto);
             return creditDto;
         } catch (Exception e) {

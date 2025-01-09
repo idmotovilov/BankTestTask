@@ -18,18 +18,29 @@ public class DealController {
 
     private final DealService dealService;
 
+    /**
+     * Создание Statement и получение офферов (через шаблон execute).
+     */
     @PostMapping("/statement")
     public List<LoanOfferDto> createStatement(@RequestBody LoanStatementRequestDto dto) {
         log.info("createStatement() called, dto={}", dto);
-        return dealService.createStatementAndGetOffers(dto);
+        // Вместо старого вызова createStatementAndGetOffers(dto)
+        // используем метод execute(dto) из DealServiceTemplate
+        return dealService.execute(dto);
     }
 
+    /**
+     * Выбор оффера.
+     */
     @PostMapping("/offer/select")
     public void selectOffer(@RequestBody LoanOfferDto offer) {
         log.info("selectOffer() called, offer={}", offer);
         dealService.selectOffer(offer);
     }
 
+    /**
+     * Завершение регистрации + полный подсчёт кредита.
+     */
     @PostMapping("/calculate/{statementId}")
     public void calculate(@PathVariable("statementId") Long statementId,
                           @RequestBody FinishRegistrationRequestDto dto) {

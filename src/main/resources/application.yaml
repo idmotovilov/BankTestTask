@@ -1,9 +1,13 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/dealdb
+    url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: password
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+
+calculator:
+
+  url: ${CALCULATOR_URL:http://localhost:8081/api}
